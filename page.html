@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>演算法學習中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .features {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .features h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-item .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px 0;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 演算法學習中心</h1>
+            <p>透過互動式視覺化學習，讓演算法變得簡單有趣</p>
+        </header>
+
+        <div class="main-content">
+            <div class="card">
+                <span class="card-icon">🔄</span>
+                <h3>氣泡排序法</h3>
+                <p>學習最基礎的排序演算法，觀察元素如何像氣泡般浮動到正確位置。支援升冪/降冪排序，並提供逐步執行的互動演示。</p>
+                <a href="bubble_sort.html" class="btn">開始學習 →</a>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🚧</span>
+                <h3>即將推出</h3>
+                <p>更多演算法教學即將上線！包括快速排序、合併排序、二分搜尋等。敬請期待更多互動式學習內容。</p>
+                <button class="btn secondary" disabled>敬請期待</button>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">📚</span>
+                <h3>學習資源</h3>
+                <p>了解演算法的時間複雜度、空間複雜度，以及在不同場景下的應用。讓理論知識與實作結合。</p>
+                <button class="btn secondary" disabled>即將推出</button>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2>✨ 學習特色</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon">📊</div>
+                    <h4>視覺化演示</h4>
+                    <p>動態圖表讓您直觀觀察演算法的執行過程</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">⏱️</div>
+                    <h4>可調速度</h4>
+                    <p>調整動畫速度，適合不同學習節奏</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📝</div>
+                    <h4>逐步執行</h4>
+                    <p>一步一步觀察每個操作的細節</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📈</div>
+                    <h4>統計資訊</h4>
+                    <p>即時顯示比較次數和交換次數</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📱</div>
+                    <h4>響應式設計</h4>
+                    <p>支援手機、平板和電腦瀏覽</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🎯</div>
+                    <h4>互動體驗</h4>
+                    <p>輸入自訂數據，親手操作學習</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 演算法學習中心 | 讓程式設計變得更有趣</p>
+        </footer>
+    </div>
+</body>
+</html></content>
+<parameter name="filePath">d:\11320335\index.html
