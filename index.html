@@ -20,6 +20,21 @@
     }
     header h1 { font-size: 2.5em; margin-bottom: 10px; }
     header p { font-size: 1.1em; opacity: 0.9; }
+    .nav-links {
+      margin-top: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.3s;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.3);
+    }
     
     .main-content {
       display: grid;
@@ -228,6 +243,10 @@
     <header>
       <h1>🔄 氣泡排序法</h1>
       <p>Bubble Sort - 互動式演算法教學</p>
+      <div class="nav-links">
+        <a href="page.html">🏠 首頁</a>
+        <a href="selection_sort.html">🔍 選擇排序</a>
+      </div>
     </header>
     
     <div class="main-content">
