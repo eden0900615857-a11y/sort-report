@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>插入排序 - 互動教學</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1000px; margin: 0 auto; }
+    header {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+    header h1 { font-size: 2.5em; margin-bottom: 10px; }
+    header p { font-size: 1.1em; opacity: 0.9; }
+    .nav-links {
+      margin-top: 20px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.3s;
+    }
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .section-title {
+      font-size: 1.3em;
+      color: #333;
+      margin-bottom: 15px;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 8px;
+    }
+    .controls-panel { display: flex; flex-direction: column; gap: 12px; }
+    .input-group { display: flex; flex-direction: column; gap: 6px; }
+    label { font-weight: 500; color: #555; font-size: 0.95em; }
+    input[type="text"], input[type="range"] {
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.95em;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    .checkbox-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+    .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    button {
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    button.secondary { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    #canvas-container {
+      text-align: center;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 2px dashed #ddd;
+    }
+    canvas { max-width: 100%; height: auto; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
+    .stat-item { background: #f0f4ff; padding: 12px; border-radius: 6px; text-align: center; border-left: 4px solid #667eea; }
+    .stat-label { font-size: 0.85em; color: #666; margin-bottom: 4px; }
+    .stat-value { font-size: 1.5em; font-weight: 700; color: #667eea; }
+    .description { grid-column: 1 / -1; }
+    .description h3 { color: #333; margin-bottom: 10px; font-size: 1.1em; }
+    .description p { color: #666; line-height: 1.6; margin-bottom: 10px; font-size: 0.95em; }
+    .algorithm-box { background: #f5f5f5; padding: 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 0.9em; line-height: 1.5; overflow-x: auto; color: #333; }
+    #steps { max-height: 300px; overflow-y: auto; list-style: none; padding: 0; }
+    #steps li { padding: 8px 12px; background: #f9f9f9; border-left: 4px solid #667eea; margin-bottom: 4px; border-radius: 4px; font-size: 0.9em; color: #555; }
+    #steps li.swap { border-left-color: #f5576c; }
+    .speed-display { text-align: center; margin-top: 10px; color: #667eea; font-weight: 600; }
+    @media (max-width: 768px) { .main-content { grid-template-columns: 1fr; } header h1 { font-size: 1.8em; } .stats { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📌 插入排序法</h1>
+      <p>Insertion Sort - 互動式演算法教學</p>
+      <div class="nav-links">
+        <a href="page.html">🏠 首頁</a>
+        <a href="index.html">🔄 氣泡排序</a>
+        <a href="selection_sort.html">🔍 選擇排序</a>
+      </div>
+    </header>
+    <div class="main-content">
+      <div class="card">
+        <div class="section-title">⚙️ 控制面板</div>
+        <div class="controls-panel">
+          <div class="input-group">
+            <label for="input">輸入數字（逗號分隔）</label>
+            <input id="input" type="text" value="64,34,25,12,22,11,90" />
+          </div>
+          <div class="input-group">
+            <label for="speed">動畫速度 (ms)</label>
+            <input id="speed" type="range" min="50" max="1000" value="300" step="50" />
+            <div class="speed-display"><span id="speedValue">300</span> ms</div>
+          </div>
+          <div class="checkbox-group">
+            <input id="reverse" type="checkbox" />
+            <label for="reverse">降冪排序</label>
+          </div>
+          <div class="button-group">
+            <button id="sortBtn">▶️ 自動排序</button>
+            <button id="stepBtn">⏭️ 逐步執行</button>
+          </div>
+          <button id="resetBtn" class="secondary" style="grid-column: 1 / -1;">🔄 重置</button>
+        </div>
+        <div class="stats">
+          <div class="stat-item"><div class="stat-label">比較次數</div><div class="stat-value" id="compareCount">0</div></div>
+          <div class="stat-item"><div class="stat-label">移動次數</div><div class="stat-value" id="swapCount">0</div></div>
+          <div class="stat-item"><div class="stat-label">狀態</div><div class="stat-value" id="status">就緒</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title">📊 視覺化演示</div>
+        <div id="canvas-container"><canvas id="canvas"></canvas></div>
+      </div>
+      <div class="card description">
+        <h3>💡 什麼是插入排序法？</h3>
+        <p>
+          插入排序法是一種穩定的排序演算法，它將陣列分為已排序區段和未排序區段，
+          每次從未排序區段取出一個元素，並插入到已排序區段中適當位置，直到整個陣列皆排序完成。
+        </p>
+        <h3>⏱️ 時間複雜度</h3>
+        <p>
+          <strong>最好情況：</strong> O(n) - 當陣列已排序<br>
+          <strong>平均情況：</strong> O(n²) - 隨機數據<br>
+          <strong>最壞情況：</strong> O(n²) - 陣列反向排序
+        </p>
+      </div>
+      <div class="card" style="grid-column: 1 / -1;"><div class="section-title">📋 執行步驟</div><ol id="steps" aria-live="polite"></ol></div>
+    </div>
+  </div>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const inputEl = document.getElementById('input');
+    const speedEl = document.getElementById('speed');
+    const speedValueEl = document.getElementById('speedValue');
+    const reverseEl = document.getElementById('reverse');
+    const sortBtnEl = document.getElementById('sortBtn');
+    const stepBtnEl = document.getElementById('stepBtn');
+    const resetBtnEl = document.getElementById('resetBtn');
+    const stepsEl = document.getElementById('steps');
+    const statusEl = document.getElementById('status');
+    const compareCountEl = document.getElementById('compareCount');
+    const swapCountEl = document.getElementById('swapCount');
+
+    let compareCount = 0;
+    let swapCount = 0;
+    let isSorting = false;
+
+    function parseInput() {
+      return inputEl.value
+        .split(',')
+        .map(s => Number(s.trim()))
+        .filter(x => !Number.isNaN(x));
+    }
+
+    function drawBars(arr, highlightIdx = -1, compareIdx = -1, swapIdx = -1) {
+      canvas.width = 500;
+      canvas.height = 300;
+      const barWidth = canvas.width / (arr.length + 1);
+      const maxVal = Math.max(...arr);
+      const minVal = Math.min(...arr);
+      const range = maxVal - minVal || 1;
+
+      arr.forEach((val, idx) => {
+        const barHeight = ((val - minVal) / range) * (canvas.height - 40);
+        const x = (idx + 0.5) * barWidth;
+        const y = canvas.height - barHeight - 20;
+        let color = '#667eea';
+        if (idx === highlightIdx) color = '#f5576c';
+        else if (idx === compareIdx || idx === swapIdx) color = '#ffd700';
+        ctx.fillStyle = color;
+        ctx.fillRect(x - barWidth / 2 + 10, y, barWidth - 20, barHeight);
+        ctx.fillStyle = '#333';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(val, x, canvas.height - 5);
+      });
+    }
+
+    async function insertionSortAnimated(arr, reverse = false) {
+      const a = arr.slice();
+      const n = a.length;
+      compareCount = 0;
+      swapCount = 0;
+      stepsEl.innerHTML = '';
+      isSorting = true;
+      sortBtnEl.disabled = true;
+      stepBtnEl.disabled = true;
+      inputEl.disabled = true;
+      speedEl.disabled = true;
+      reverseEl.disabled = true;
+      statusEl.textContent = '排序中...';
+
+      for (let i = 1; i < n; i++) {
+        const key = a[i];
+        let j = i - 1;
+        while (j >= 0) {
+          compareCount++;
+          compareCountEl.textContent = compareCount;
+
+          const shouldShift = (a[j] > key && !reverse) || (a[j] < key && reverse);
+          drawBars(a, i, j, j + 1);
+          await new Promise(r => setTimeout(r, parseInt(speedEl.value)));
+
+          if (!shouldShift) break;
+
+          a[j + 1] = a[j];
+          swapCount++;
+          swapCountEl.textContent = swapCount;
+          const li = document.createElement('li');
+          li.className = 'swap';
+          li.textContent = `第 ${swapCount} 次移動：位置 ${j} -> ${j + 1}（值 ${a[j]}）`;
+          stepsEl.appendChild(li);
+          stepsEl.scrollTop = stepsEl.scrollHeight;
+
+          j--;
+        }
+
+        a[j + 1] = key;
+        drawBars(a, j + 1, -1, -1);
+        await new Promise(r => setTimeout(r, parseInt(speedEl.value)));
+      }
+
+      currentResult(a);
+    }
+
+    async function insertionSortStep(arr, reverse = false) {
+      const a = arr.slice();
+      const n = a.length;
+      compareCount = 0;
+      swapCount = 0;
+      stepsEl.innerHTML = '';
+      isSorting = true;
+      sortBtnEl.disabled = true;
+      stepBtnEl.disabled = true;
+      inputEl.disabled = true;
+      speedEl.disabled = true;
+      reverseEl.disabled = true;
+      statusEl.textContent = '逐步執行...';
+
+      for (let i = 1; i < n; i++) {
+        const key = a[i];
+        let j = i - 1;
+        while (j >= 0) {
+          compareCount++;
+          compareCountEl.textContent = compareCount;
+          const shouldShift = (a[j] > key && !reverse) || (a[j] < key && reverse);
+          drawBars(a, i, j, j + 1);
+
+          if (!shouldShift) break;
+
+          await new Promise(r => {
+            const waitStep = document.createElement('li');
+            waitStep.className = 'swap';
+            waitStep.textContent = `準備將位置 ${j} 的值 ${a[j]} 向右移動到 ${j + 1}，點擊「下一步」`; 
+            stepsEl.appendChild(waitStep);
+            stepsEl.scrollTop = stepsEl.scrollHeight;
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = '下一步';
+            nextBtn.style.marginTop = '10px';
+            nextBtn.onclick = () => { nextBtn.remove(); waitStep.remove(); r(); };
+            stepsEl.appendChild(nextBtn);
+          });
+
+          a[j + 1] = a[j];
+          swapCount++;
+          swapCountEl.textContent = swapCount;
+          const li = document.createElement('li');
+          li.className = 'swap';
+          li.textContent = `第 ${swapCount} 次移動：位置 ${j} -> ${j + 1}（值 ${a[j]}）`;
+          stepsEl.appendChild(li);
+          stepsEl.scrollTop = stepsEl.scrollHeight;
+          j--;
+        }
+
+        a[j + 1] = key;
+        drawBars(a, j + 1, -1, -1);
+
+        await new Promise(r => {
+          const waitStep = document.createElement('li');
+          waitStep.className = 'swap';
+          waitStep.textContent = `插入值 ${key} 到位置 ${j + 1}，點擊「下一步」`; 
+          stepsEl.appendChild(waitStep);
+          stepsEl.scrollTop = stepsEl.scrollHeight;
+          const nextBtn = document.createElement('button');
+          nextBtn.textContent = '下一步';
+          nextBtn.style.marginTop = '10px';
+          nextBtn.onclick = () => { nextBtn.remove(); waitStep.remove(); r(); };
+          stepsEl.appendChild(nextBtn);
+        });
+
+        const li2 = document.createElement('li');
+        li2.className = 'swap';
+        li2.textContent = `已插入 ${key} 到位置 ${j + 1}`;
+        stepsEl.appendChild(li2);
+        stepsEl.scrollTop = stepsEl.scrollHeight;
+      }
+
+      currentResult(a);
+    }
+
+    function currentResult(a) {
+      statusEl.textContent = '✓ 排序完成';
+      isSorting = false;
+      sortBtnEl.disabled = false;
+      stepBtnEl.disabled = false;
+      inputEl.disabled = false;
+      speedEl.disabled = false;
+      reverseEl.disabled = false;
+      drawBars(a);
+    }
+
+    speedEl.addEventListener('input', (e) => { speedValueEl.textContent = e.target.value; });
+
+    sortBtnEl.addEventListener('click', () => {
+      if (!isSorting) {
+        const arr = parseInput();
+        if (arr.length < 2) { alert('請輸入至少 2 個數字'); return; }
+        insertionSortAnimated(arr, reverseEl.checked);
+      }
+    });
+
+    stepBtnEl.addEventListener('click', () => {
+      if (!isSorting) {
+        const arr = parseInput();
+        if (arr.length < 2) { alert('請輸入至少 2 個數字'); return; }
+        insertionSortStep(arr, reverseEl.checked);
+      }
+    });
+
+    resetBtnEl.addEventListener('click', () => {
+      inputEl.value = '64,34,25,12,22,11,90';
+      reverseEl.checked = false;
+      stepsEl.innerHTML = '';
+      statusEl.textContent = '就緒';
+      compareCount = 0;
+      swapCount = 0;
+      compareCountEl.textContent = '0';
+      swapCountEl.textContent = '0';
+      drawBars(parseInput());
+      isSorting = false;
+    });
+
+    window.addEventListener('load', () => { drawBars(parseInput()); });
+    inputEl.addEventListener('change', () => {
+      if (!isSorting) {
+        const arr = parseInput();
+        if (arr.length > 0) {
+          drawBars(arr);
+          stepsEl.innerHTML = '';
+          statusEl.textContent = '就緒';
+          compareCount = 0;
+          swapCount = 0;
+          compareCountEl.textContent = '0';
+          swapCountEl.textContent = '0';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
