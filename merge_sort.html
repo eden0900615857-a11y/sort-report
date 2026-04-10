@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>選擇排序 - 互動教學</title>
+  <title>合併排序 - 互動教學</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -35,21 +35,18 @@
     .nav-links a:hover {
       background: rgba(255,255,255,0.3);
     }
-    
     .main-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       margin-bottom: 20px;
     }
-    
     .card {
       background: white;
       border-radius: 12px;
       padding: 24px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-    
     .section-title {
       font-size: 1.3em;
       color: #333;
@@ -57,26 +54,21 @@
       border-bottom: 3px solid #667eea;
       padding-bottom: 8px;
     }
-    
-    /* 控制面板 */
     .controls-panel {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-    
     .input-group {
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    
     label {
       font-weight: 500;
       color: #555;
       font-size: 0.95em;
     }
-    
     input[type="text"],
     input[type="range"] {
       padding: 10px;
@@ -85,32 +77,27 @@
       font-size: 0.95em;
       transition: border-color 0.3s;
     }
-    
     input[type="text"]:focus {
       outline: none;
       border-color: #667eea;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
-    
     .checkbox-group {
       display: flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
-    
     input[type="checkbox"] {
       width: 18px;
       height: 18px;
       cursor: pointer;
     }
-    
     .button-group {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
-    
     button {
       padding: 12px 16px;
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -122,15 +109,11 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    
     button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
     button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    
     button.secondary {
       background: linear-gradient(135deg, #f093fb, #f5576c);
     }
-    
-    /* 視覺化區域 */
     #canvas-container {
       text-align: center;
       min-height: 250px;
@@ -141,20 +124,16 @@
       border-radius: 8px;
       border: 2px dashed #ddd;
     }
-    
     canvas {
       max-width: 100%;
       height: auto;
     }
-    
-    /* 統計資訊 */
     .stats {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
       margin-top: 15px;
     }
-    
     .stat-item {
       background: #f0f4ff;
       padding: 12px;
@@ -162,37 +141,30 @@
       text-align: center;
       border-left: 4px solid #667eea;
     }
-    
     .stat-label {
       font-size: 0.85em;
       color: #666;
       margin-bottom: 4px;
     }
-    
     .stat-value {
       font-size: 1.5em;
       font-weight: 700;
       color: #667eea;
     }
-    
-    /* 說明部分 */
     .description {
       grid-column: 1 / -1;
     }
-    
     .description h3 {
       color: #333;
       margin-bottom: 10px;
       font-size: 1.1em;
     }
-    
     .description p {
       color: #666;
       line-height: 1.6;
       margin-bottom: 10px;
       font-size: 0.95em;
     }
-    
     .algorithm-box {
       background: #f5f5f5;
       padding: 12px;
@@ -203,15 +175,12 @@
       overflow-x: auto;
       color: #333;
     }
-    
-    /* 步驟列表 */
     #steps {
       max-height: 300px;
       overflow-y: auto;
       list-style: none;
       padding: 0;
     }
-    
     #steps li {
       padding: 8px 12px;
       background: #f9f9f9;
@@ -221,16 +190,13 @@
       font-size: 0.9em;
       color: #555;
     }
-    
     #steps li.swap { border-left-color: #f5576c; }
-    
     .speed-display {
       text-align: center;
       margin-top: 10px;
       color: #667eea;
       font-weight: 600;
     }
-    
     @media (max-width: 768px) {
       .main-content { grid-template-columns: 1fr; }
       header h1 { font-size: 1.8em; }
@@ -241,18 +207,16 @@
 <body>
   <div class="container">
     <header>
-      <h1>🔍 選擇排序法</h1>
-      <p>Selection Sort - 互動式演算法教學</p>
+      <h1>🔗 合併排序法</h1>
+      <p>Merge Sort - 互動式演算法教學</p>
       <div class="nav-links">
         <a href="page.html">🏠 首頁</a>
         <a href="index.html">🔄 氣泡排序</a>
+        <a href="selection_sort.html">🔍 選擇排序</a>
         <a href="insertion_sort.html">📌 插入排序</a>
-        <a href="merge_sort.html">🧩 合併排序</a>
       </div>
     </header>
-    
     <div class="main-content">
-      <!-- 控制面板 -->
       <div class="card">
         <div class="section-title">⚙️ 控制面板</div>
         <div class="controls-panel">
@@ -260,34 +224,29 @@
             <label for="input">輸入數字（逗號分隔）</label>
             <input id="input" type="text" value="64,34,25,12,22,11,90" />
           </div>
-          
           <div class="input-group">
             <label for="speed">動畫速度 (ms)</label>
             <input id="speed" type="range" min="50" max="1000" value="300" step="50" />
             <div class="speed-display"><span id="speedValue">300</span> ms</div>
           </div>
-          
           <div class="checkbox-group">
             <input id="reverse" type="checkbox" />
             <label for="reverse">降冪排序</label>
           </div>
-          
           <div class="button-group">
             <button id="sortBtn">▶️ 自動排序</button>
             <button id="stepBtn">⏭️ 逐步執行</button>
           </div>
-          
           <button id="resetBtn" class="secondary" style="grid-column: 1 / -1;">🔄 重置</button>
         </div>
-        
         <div class="stats">
           <div class="stat-item">
             <div class="stat-label">比較次數</div>
             <div class="stat-value" id="compareCount">0</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">交換次數</div>
-            <div class="stat-value" id="swapCount">0</div>
+            <div class="stat-label">合併次數</div>
+            <div class="stat-value" id="mergeCount">0</div>
           </div>
           <div class="stat-item">
             <div class="stat-label">狀態</div>
@@ -295,40 +254,31 @@
           </div>
         </div>
       </div>
-      
-      <!-- 視覺化區域 -->
       <div class="card">
         <div class="section-title">📊 視覺化演示</div>
         <div id="canvas-container">
           <canvas id="canvas"></canvas>
         </div>
       </div>
-      
-      <!-- 說明文字 -->
       <div class="card description">
-        <h3>💡 什麼是選擇排序法？</h3>
+        <h3>💡 什麼是合併排序法？</h3>
         <p>
-          選擇排序法是一種簡單的排序演算法。它的工作原理是每一次從待排序的數據元素中選出最小（或最大）的一個元素，
-          存放在序列的起始位置，然後，再從剩余的未排序元素中繼續尋找最小（或最大）元素，然後放到已排序序列的末尾。
-          以此類推，直到全部待排序的數據元素排完。
+          合併排序法是一種遞迴的分治演算法。它先將陣列分成兩半，分別排序後再合併，
+          最終得到已排序的序列。這種方法適合用於大量資料排序，時間複雜度穩定且效率高。
         </p>
-        
         <h3>⏱️ 時間複雜度</h3>
         <p>
-          <strong>最好情況：</strong> O(n²) - 即使已排序也需要比較<br>
-          <strong>平均情況：</strong> O(n²) - 隨機數據<br>
-          <strong>最壞情況：</strong> O(n²) - 陣列反向排序
+          <strong>最好情況：</strong> O(n log n) <br>
+          <strong>平均情況：</strong> O(n log n) <br>
+          <strong>最壞情況：</strong> O(n log n)
         </p>
       </div>
-      
-      <!-- 步驟列表 -->
       <div class="card" style="grid-column: 1 / -1;">
         <div class="section-title">📋 執行步驟</div>
         <ol id="steps" aria-live="polite"></ol>
       </div>
     </div>
   </div>
-
   <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -342,185 +292,138 @@
     const stepsEl = document.getElementById('steps');
     const statusEl = document.getElementById('status');
     const compareCountEl = document.getElementById('compareCount');
-    const swapCountEl = document.getElementById('swapCount');
-    
-    let currentArray = [];
+    const mergeCountEl = document.getElementById('mergeCount');
+
     let compareCount = 0;
-    let swapCount = 0;
+    let mergeCount = 0;
     let isSorting = false;
     let sortingPromise = null;
-    
+
     function parseInput() {
       return inputEl.value
         .split(',')
         .map(s => Number(s.trim()))
         .filter(x => !Number.isNaN(x));
     }
-    
-    function drawBars(arr, highlightIdx = -1, compareIdx = -1, swapIdx = -1) {
+
+    function drawBars(arr, highlightLeft = -1, highlightRight = -1, compareA = -1, compareB = -1) {
       canvas.width = 500;
       canvas.height = 300;
       const barWidth = canvas.width / (arr.length + 1);
       const maxVal = Math.max(...arr);
       const minVal = Math.min(...arr);
       const range = maxVal - minVal || 1;
-      
+
       arr.forEach((val, idx) => {
         const barHeight = ((val - minVal) / range) * (canvas.height - 40);
         const x = (idx + 0.5) * barWidth;
         const y = canvas.height - barHeight - 20;
-        
-        // 根據狀態設置顏色
         let color = '#667eea';
-        if (idx === highlightIdx) color = '#f5576c';
-        else if (idx === compareIdx || idx === swapIdx) color = '#ffd700';
-        
+
+        if (idx === compareA || idx === compareB) {
+          color = '#ffd700';
+        } else if (idx >= highlightLeft && idx <= highlightRight && highlightLeft !== -1) {
+          color = '#4ade80';
+        }
+
         ctx.fillStyle = color;
         ctx.fillRect(x - barWidth / 2 + 10, y, barWidth - 20, barHeight);
-        
         ctx.fillStyle = '#333';
         ctx.font = '12px Arial';
         ctx.textAlign = 'center';
         ctx.fillText(val, x, canvas.height - 5);
       });
     }
-    
-    async function selectionSortAnimated(arr, reverse = false) {
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function generateMergeEvents(arr, reverse = false) {
       const a = arr.slice();
-      const n = a.length;
-      compareCount = 0;
-      swapCount = 0;
+      const events = [];
+
+      function merge(left, mid, right) {
+        let i = left;
+        let j = mid;
+        const merged = [];
+
+        while (i < mid || j < right) {
+          if (i < mid && j < right) {
+            compareCount++;
+            events.push({ type: 'compare', compareA: i, compareB: j, array: a.slice(), left, right });
+            const takeLeft = reverse ? a[i] > a[j] : a[i] < a[j];
+            if (takeLeft) {
+              merged.push(a[i++]);
+            } else {
+              merged.push(a[j++]);
+            }
+          } else if (i < mid) {
+            merged.push(a[i++]);
+          } else {
+            merged.push(a[j++]);
+          }
+        }
+
+        for (let k = left; k < right; k++) {
+          a[k] = merged[k - left];
+          events.push({ type: 'place', index: k, value: a[k], array: a.slice(), left, right });
+        }
+
+        mergeCount++;
+        events.push({ type: 'merged', left, right, array: a.slice() });
+      }
+
+      function sortRange(left, right) {
+        if (right - left <= 1) return;
+        const mid = Math.floor((left + right) / 2);
+        sortRange(left, mid);
+        sortRange(mid, right);
+        merge(left, mid, right);
+      }
+
+      sortRange(0, a.length);
+      return events;
+    }
+
+    async function animateMergeSort(arr, reverse = false) {
+      const events = generateMergeEvents(arr, reverse);
+      compareCountEl.textContent = compareCount;
+      mergeCountEl.textContent = mergeCount;
       stepsEl.innerHTML = '';
-      isSorting = true;
-      sortBtnEl.disabled = true;
-      stepBtnEl.disabled = true;
-      inputEl.disabled = true;
-      speedEl.disabled = true;
-      reverseEl.disabled = true;
       statusEl.textContent = '排序中...';
-      
-      for (let i = 0; i < n - 1; i++) {
-        let minIdx = i;
-        for (let j = i + 1; j < n; j++) {
-          compareCount++;
-          compareCountEl.textContent = compareCount;
-          
-          const shouldUpdateMin = (a[j] < a[minIdx] && !reverse) || (a[j] > a[minIdx] && reverse);
-          
-          drawBars(a, i, j, minIdx);
-          await new Promise(r => setTimeout(r, parseInt(speedEl.value)));
-          
-          if (shouldUpdateMin) {
-            minIdx = j;
-          }
-        }
-        
-        if (minIdx !== i) {
-          [a[i], a[minIdx]] = [a[minIdx], a[i]];
-          swapCount++;
-          swapCountEl.textContent = swapCount;
-          const li = document.createElement('li');
-          li.className = 'swap';
-          li.textContent = `第 ${swapCount} 次交換：位置 ${i} 和 ${minIdx}，數值 ${a[minIdx]} ↔ ${a[i]}`;
-          stepsEl.appendChild(li);
-          stepsEl.scrollTop = stepsEl.scrollHeight;
-        }
-        
-        drawBars(a, i, -1, -1);
-        await new Promise(r => setTimeout(r, parseInt(speedEl.value)));
-      }
-      
-      currentArray = a;
-      statusEl.textContent = '✓ 排序完成';
-      isSorting = false;
-      sortBtnEl.disabled = false;
-      stepBtnEl.disabled = false;
-      inputEl.disabled = false;
-      speedEl.disabled = false;
-      reverseEl.disabled = false;
-      drawBars(a);
-    }
-    
-    async function selectionSortStep(arr, reverse = false) {
-      const a = arr.slice();
-      const n = a.length;
-      compareCount = 0;
-      swapCount = 0;
-      stepsEl.innerHTML = '';
-      isSorting = true;
       sortBtnEl.disabled = true;
       stepBtnEl.disabled = true;
       inputEl.disabled = true;
       speedEl.disabled = true;
       reverseEl.disabled = true;
-      statusEl.textContent = '逐步執行...';
-      
-      for (let i = 0; i < n - 1; i++) {
-        let minIdx = i;
-        for (let j = i + 1; j < n; j++) {
-          compareCount++;
-          compareCountEl.textContent = compareCount;
-          
-          const shouldUpdateMin = (a[j] < a[minIdx] && !reverse) || (a[j] > a[minIdx] && reverse);
-          
-          drawBars(a, i, j, minIdx);
-          
-          if (shouldUpdateMin) {
-            await new Promise(r => {
-              const waitStep = document.createElement('li');
-              waitStep.className = 'swap';
-              waitStep.textContent = `找到更小值：位置 ${j}，點擊「下一步」繼續...`;
-              stepsEl.appendChild(waitStep);
-              stepsEl.scrollTop = stepsEl.scrollHeight;
-              
-              const nextBtn = document.createElement('button');
-              nextBtn.textContent = '下一步';
-              nextBtn.style.marginTop = '10px';
-              nextBtn.onclick = () => {
-                nextBtn.remove();
-                waitStep.remove();
-                r();
-              };
-              stepsEl.appendChild(nextBtn);
-            });
-            
-            minIdx = j;
-          }
-        }
-        
-        if (minIdx !== i) {
-          await new Promise(r => {
-            const waitSwap = document.createElement('li');
-            waitSwap.className = 'swap';
-            waitSwap.textContent = `準備交換：位置 ${i} 和 ${minIdx}，點擊「下一步」繼續...`;
-            stepsEl.appendChild(waitSwap);
-            stepsEl.scrollTop = stepsEl.scrollHeight;
-            
-            const nextBtn = document.createElement('button');
-            nextBtn.textContent = '下一步';
-            nextBtn.style.marginTop = '10px';
-            nextBtn.onclick = () => {
-              nextBtn.remove();
-              waitSwap.remove();
-              r();
-            };
-            stepsEl.appendChild(nextBtn);
-          });
-          
-          [a[i], a[minIdx]] = [a[minIdx], a[i]];
-          swapCount++;
-          swapCountEl.textContent = swapCount;
+      isSorting = true;
+
+      for (const event of events) {
+        if (!isSorting) break;
+        const { type, compareA, compareB, left, right, array } = event;
+        if (type === 'compare') {
+          drawBars(array, left, right - 1, compareA, compareB);
+          stepsEl.innerHTML = `<li>比較索引 ${compareA} 和 ${compareB}</li>`;
+        } else if (type === 'place') {
+          drawBars(array, left, right - 1, compareA, compareB);
+          const li = document.createElement('li');
+          li.textContent = `寫入位置 ${event.index}：${event.value}`;
+          stepsEl.appendChild(li);
+          stepsEl.scrollTop = stepsEl.scrollHeight;
+        } else if (type === 'merged') {
+          drawBars(array, event.left, event.right - 1);
           const li = document.createElement('li');
           li.className = 'swap';
-          li.textContent = `第 ${swapCount} 次交換：位置 ${i} 和 ${minIdx}，數值 ${a[minIdx]} ↔ ${a[i]}`;
+          li.textContent = `已合併範圍 [${event.left}, ${event.right})`; 
           stepsEl.appendChild(li);
           stepsEl.scrollTop = stepsEl.scrollHeight;
         }
-        
-        drawBars(a, i, -1, -1);
+        compareCountEl.textContent = compareCount;
+        mergeCountEl.textContent = mergeCount;
+        await sleep(parseInt(speedEl.value));
       }
-      
-      currentArray = a;
+
       statusEl.textContent = '✓ 排序完成';
       isSorting = false;
       sortBtnEl.disabled = false;
@@ -528,13 +431,65 @@
       inputEl.disabled = false;
       speedEl.disabled = false;
       reverseEl.disabled = false;
-      drawBars(a);
+      drawBars(arr.slice().sort((a, b) => reverse ? b - a : a - b));
     }
-    
+
+    async function stepMergeSort(arr, reverse = false) {
+      const events = generateMergeEvents(arr, reverse);
+      compareCountEl.textContent = compareCount;
+      mergeCountEl.textContent = mergeCount;
+      stepsEl.innerHTML = '';
+      statusEl.textContent = '逐步執行...';
+      sortBtnEl.disabled = true;
+      stepBtnEl.disabled = true;
+      inputEl.disabled = true;
+      speedEl.disabled = true;
+      reverseEl.disabled = true;
+      isSorting = true;
+
+      for (const event of events) {
+        if (!isSorting) break;
+        const { type, compareA, compareB, left, right, array } = event;
+        const li = document.createElement('li');
+        if (type === 'compare') {
+          drawBars(array, left, right - 1, compareA, compareB);
+          li.textContent = `比較索引 ${compareA} 和 ${compareB}`;
+        } else if (type === 'place') {
+          drawBars(array, left, right - 1);
+          li.textContent = `寫入位置 ${event.index}：${event.value}`;
+        } else {
+          drawBars(array, event.left, event.right - 1);
+          li.textContent = `已合併範圍 [${event.left}, ${event.right})`;
+          li.className = 'swap';
+        }
+        stepsEl.appendChild(li);
+        stepsEl.scrollTop = stepsEl.scrollHeight;
+
+        await new Promise(resolve => {
+          const nextBtn = document.createElement('button');
+          nextBtn.textContent = '下一步';
+          nextBtn.style.marginTop = '10px';
+          nextBtn.onclick = () => {
+            nextBtn.remove();
+            resolve();
+          };
+          stepsEl.appendChild(nextBtn);
+        });
+      }
+
+      statusEl.textContent = '✓ 排序完成';
+      isSorting = false;
+      sortBtnEl.disabled = false;
+      stepBtnEl.disabled = false;
+      inputEl.disabled = false;
+      speedEl.disabled = false;
+      reverseEl.disabled = false;
+    }
+
     speedEl.addEventListener('input', (e) => {
       speedValueEl.textContent = e.target.value;
     });
-    
+
     sortBtnEl.addEventListener('click', () => {
       if (!isSorting) {
         const arr = parseInput();
@@ -542,10 +497,12 @@
           alert('請輸入至少 2 個數字');
           return;
         }
-        selectionSortAnimated(arr, reverseEl.checked);
+        compareCount = 0;
+        mergeCount = 0;
+        animateMergeSort(arr, reverseEl.checked);
       }
     });
-    
+
     stepBtnEl.addEventListener('click', () => {
       if (!isSorting) {
         const arr = parseInput();
@@ -553,14 +510,13 @@
           alert('請輸入至少 2 個數字');
           return;
         }
-        selectionSortStep(arr, reverseEl.checked);
+        compareCount = 0;
+        mergeCount = 0;
+        stepMergeSort(arr, reverseEl.checked);
       }
     });
-    
+
     resetBtnEl.addEventListener('click', () => {
-      if (sortingPromise) {
-        sortingPromise = null;
-      }
       isSorting = false;
       sortBtnEl.disabled = false;
       stepBtnEl.disabled = false;
@@ -569,15 +525,14 @@
       reverseEl.disabled = false;
       statusEl.textContent = '就緒';
       compareCount = 0;
-      swapCount = 0;
+      mergeCount = 0;
       compareCountEl.textContent = '0';
-      swapCountEl.textContent = '0';
+      mergeCountEl.textContent = '0';
       stepsEl.innerHTML = '';
       const arr = parseInput();
       drawBars(arr);
     });
-    
-    // 初始化
+
     const initialArr = parseInput();
     drawBars(initialArr);
   </script>
